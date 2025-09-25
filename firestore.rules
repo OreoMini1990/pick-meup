@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isSelf(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    
+    function isOwnerOrPublic(resource) {
+      return isSignedIn() && (
+        resource.data.uid == request.auth.uid || 
+        resource.data.uid == null
+      );
+    }
+
+    // Public meta data
+    match /meta/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Users collection
+    match /users/{uid} {
+      allow read: if isSignedIn();
+      allow write: if isSelf(uid);
+      
+      // User photos subcollection
+      match /photos/{photoId} {
+        allow read: if true; // Public photos for the app
+        allow write: if isSelf(uid);
+      }
+    }
+
+    // Photo choices
+    match /photoChoices/{id} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Feed cooldown
+    match /feedCooldown/{id} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Likes
+    match /likes/{id} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Matches
+    match /matches/{id} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Inbox states
+    match /inboxStates/{uid} {
+      allow read, write: if isSelf(uid);
+    }
+  }
+}

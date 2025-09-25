@@ -1,0 +1,50 @@
+name: photo_pick_dating_new
+description: A social app where users pick between two photos of the same person
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  flutter_riverpod: ^2.5.1
+  
+  # Navigation
+  go_router: ^14.2.0
+  
+  # Firebase
+  firebase_core: ^3.15.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.6.11
+  firebase_storage: ^12.3.1
+  
+  # Authentication
+  google_sign_in: ^6.2.1
+  
+  # Image handling
+  image_picker: ^1.1.1
+  cached_network_image: ^3.3.1
+  
+  # UI Components
+  badges: ^3.1.2
+  lottie: ^2.7.0
+  flutter_svg: ^2.0.10
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.5.0
+  transparent_image: ^2.0.0
+  
+  # Utilities
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
